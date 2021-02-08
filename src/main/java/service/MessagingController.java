@@ -45,6 +45,7 @@ public class MessagingController {
         String reqMsgBody = requestBody.getMessageBody();
 
         if (reqMsgType.equals("QUEUE")) {
+            LOGGER.info("Creating ServiceBusMessage with uuid: " + reqUuid);
             ServiceBusMessage sbm = MessagingUtils.createMessage(requestBody);
             LOGGER.info("Sending service bus message with uuid: " + reqUuid);
             MessagingUtils.sendMessage(sbm);
