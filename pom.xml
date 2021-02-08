@@ -11,7 +11,7 @@
 	<groupId>com.poc.azure</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>azure-poc</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
