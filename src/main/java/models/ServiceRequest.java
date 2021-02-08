@@ -7,7 +7,7 @@ public class ServiceRequest {
     private long uuid;
     private String messageType;
     private String messageBody;
-    Map<String, String> additionalFields;
+    //Map<String, String> additionalFields;
 
 
     public long getUuid() {
@@ -34,13 +34,13 @@ public class ServiceRequest {
         this.messageBody = messageBody;
     }
 
-    public Map<String, String> getAdditionalFields() {
-        return additionalFields;
-    }
-
-    public void setAdditionalFields(Map<String, String> additionalFields) {
-        this.additionalFields = additionalFields;
-    }
+//    public Map<String, String> getAdditionalFields() {
+//        return additionalFields;
+//    }
+//
+//    public void setAdditionalFields(Map<String, String> additionalFields) {
+//        this.additionalFields = additionalFields;
+//    }
 
     @Override
     public String toString() {
@@ -48,7 +48,7 @@ public class ServiceRequest {
                 "uuid=" + uuid +
                 ", messageType='" + messageType + '\'' +
                 ", messageBody='" + messageBody + '\'' +
-                ", additionalFields=" + additionalFields +
+               // ", additionalFields=" + additionalFields +
                 '}';
     }
 }

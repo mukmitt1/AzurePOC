@@ -1,5 +1,7 @@
 package service;
 
+import com.azure.messaging.servicebus.ServiceBusMessage;
+import messaging.MessagingUtils;
 import models.ServiceRequest;
 import models.ServiceResponse;
 import org.slf4j.Logger;
@@ -13,7 +15,7 @@ import java.security.Provider;
 
 @RestController
 public class MessagingController {
-    //TODO logging goes here
+    //TODO logging goes hereAdrafinil
 
     private static final Logger LOGGER= LoggerFactory.getLogger(MessagingController.class);
 
@@ -42,11 +44,28 @@ public class MessagingController {
         String reqMsgType = requestBody.getMessageType();
         String reqMsgBody = requestBody.getMessageBody();
 
+        if (reqMsgType.equals("QUEUE")) {
+            ServiceBusMessage sbm = MessagingUtils.createMessage(requestBody);
+            LOGGER.info("Sending service bus message with uuid: " + reqUuid);
+            MessagingUtils.sendMessage(sbm);
+        }
+
         ServiceResponse response = new ServiceResponse();
         response.setUuid(reqUuid);
         response.setAdditionalStatusCode("200");
         response.setAdditionalStatusMsg("POST request to /msgWebhook recieved! Webhook request UUID: " + reqUuid + " msgType: " + reqMsgType + " msgBody: " + reqMsgBody);
 
+
+
         return response;
+    }
+
+    @GetMapping("/readQueue")
+    public void readQueue() {
+        try {
+            MessagingUtils.receiveMessages();
+        } catch (InterruptedException e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 }
