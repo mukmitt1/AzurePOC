@@ -48,12 +48,12 @@ public class MessagingUtils {
       // handles any errors that occur when receiving messages
       Consumer<Throwable> errorHandler = throwable -> {
          System.out.println("Error when receiving messages: " + throwable.getMessage());
-//         if (throwable instanceof ServiceBusReceiverException) {
-//            ServiceBusReceiverException serviceBusReceiverException = (ServiceBusReceiverException) throwable;
-//            System.out.println("Error source: " + serviceBusReceiverException.getErrorSource());
-//         }
-//         Exception e = (Exception) throwable;
-//         System.out.println(e.getMessage());
+         if (throwable instanceof ServiceBusReceiverException) {
+            ServiceBusReceiverException serviceBusReceiverException = (ServiceBusReceiverException) throwable;
+            System.out.println("Error source: " + serviceBusReceiverException.getErrorSource());
+         }
+         Exception e = (Exception) throwable;
+         System.out.println(e.getMessage());
       };
 
       // create an instance of the processor through the ServiceBusClientBuilder
@@ -62,7 +62,7 @@ public class MessagingUtils {
               .processor()
               .queueName(queueName)
               .processMessage(messageProcessor)
-              //.processError(errorHandler)
+              .processError(errorHandler)
               .buildProcessorClient();
 
       LOGGER.info("Starting the processor");
