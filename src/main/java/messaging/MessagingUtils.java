@@ -1,12 +1,11 @@
 package messaging;
 
 import com.azure.messaging.servicebus.*;
-import com.azure.messaging.servicebus.models.*;
 import models.ServiceRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import service.MessagingController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +14,8 @@ import java.util.function.Consumer;
 public class MessagingUtils {
 
    private static final Logger LOGGER= LoggerFactory.getLogger(MessagingUtils.class);
+
+   static List<String> messages;
 
    static String connectionString = "Endpoint=sb://umbcssbusns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=saoLSDQHoRDECaiGC8kKXw8XE/V7QdwG2rtGqRnOM7M=";
    static String queueName = "notificationqueue";
@@ -38,27 +39,19 @@ public class MessagingUtils {
       LOGGER.info("Sent a single message to the queue: " + queueName);
    }
 
-   public static void receiveMessages() throws InterruptedException
+   public static List<String> receiveMessages() throws InterruptedException
    {
 
       CountDownLatch countdownLatch = new CountDownLatch(1);
+
+      messages = new ArrayList<String>();
 
       // consumer that processes a single message received from Service Bus
       Consumer<ServiceBusReceivedMessageContext> messageProcessor = context -> {
          ServiceBusReceivedMessage message = context.getMessage();
          LOGGER.info("Received message: " + message.getBody().toString());
+         messages.add(message.getBody().toString());
       };
-
-      // handles any errors that occur when receiving messages
-//      Consumer<Throwable> errorHandler = throwable -> {
-//         System.out.println("Error when receiving messages: " + throwable.getMessage());
-//         if (throwable instanceof Exception) {
-//            Exception serviceBusReceiverException = (Exception) throwable;
-//            System.out.println("Error source: " + serviceBusReceiverException.getMessage());
-//         }
-//         Exception e = (Exception) throwable;
-//         System.out.println(e.getMessage());
-//      };
 
       // create an instance of the processor through the ServiceBusClientBuilder
       ServiceBusProcessorClient processorClient = new ServiceBusClientBuilder()
@@ -75,6 +68,8 @@ public class MessagingUtils {
       TimeUnit.SECONDS.sleep(10);
       LOGGER.info("Stopping and closing the processor");
       processorClient.close();
+
+      return messages;
    }
 
    /**

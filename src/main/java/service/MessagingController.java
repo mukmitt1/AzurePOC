@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Provider;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 public class MessagingController {
@@ -62,11 +65,20 @@ public class MessagingController {
     }
 
     @GetMapping("/readQueue")
-    public void readQueue() {
+    public ServiceResponse readQueue() {
+        List<String> messageBodies = new ArrayList<>();
         try {
-            MessagingUtils.receiveMessages();
+            messageBodies = MessagingUtils.receiveMessages();
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage());
         }
+
+        ServiceResponse response = new ServiceResponse();
+
+        response.setUuid(new Random().nextLong());
+        response.setAdditionalStatusCode("200");
+        response.setAdditionalStatusMsg("Messages: " + messageBodies.toString());
+
+        return response;
     }
 }
