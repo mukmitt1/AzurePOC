@@ -5,10 +5,12 @@ import java.util.Map;
 public class ServiceRequest {
 
     private long uuid;
+    private String accountId;
+    private String name;
+    private String phone;
     private String messageType;
     private String messageBody;
-    //Map<String, String> additionalFields;
-
+    private Meta meta;
 
     public long getUuid() {
         return uuid;
@@ -34,21 +36,48 @@ public class ServiceRequest {
         this.messageBody = messageBody;
     }
 
-//    public Map<String, String> getAdditionalFields() {
-//        return additionalFields;
-//    }
-//
-//    public void setAdditionalFields(Map<String, String> additionalFields) {
-//        this.additionalFields = additionalFields;
-//    }
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Meta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Meta meta) {
+        this.meta = meta;
+    }
 
     @Override
     public String toString() {
         return "ServiceRequest{" +
                 "uuid=" + uuid +
+                ", accountId='" + accountId + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
                 ", messageType='" + messageType + '\'' +
                 ", messageBody='" + messageBody + '\'' +
-               // ", additionalFields=" + additionalFields +
+                ", meta=" + meta +
                 '}';
     }
 }
