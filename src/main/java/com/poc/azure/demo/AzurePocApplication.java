@@ -10,6 +10,7 @@ import service.MessagingController;
 public class AzurePocApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(AzurePocApplication.class, args);
 	}
 

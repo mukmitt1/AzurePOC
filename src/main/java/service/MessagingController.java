@@ -1,15 +1,14 @@
 package service;
 
 import com.azure.messaging.servicebus.ServiceBusMessage;
+import config.Config;
 import messaging.MessagingUtils;
 import models.ServiceRequest;
 import models.ServiceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Provider;
 import java.util.ArrayList;
@@ -59,8 +58,6 @@ public class MessagingController {
         response.setAdditionalStatusCode("200");
         response.setAdditionalStatusMsg("POST request to /msgWebhook recieved! Webhook request UUID: " + reqUuid + " msgType: " + reqMsgType + " msgBody: " + reqMsgBody);
 
-
-
         return response;
     }
 
@@ -80,5 +77,19 @@ public class MessagingController {
         response.setAdditionalStatusMsg("Messages: " + messageBodies.toString());
 
         return response;
+    }
+
+    @GetMapping("/saveSecret")
+    @ResponseStatus(HttpStatus.OK)
+    public String saveSecret(@RequestParam String key, @RequestParam String value) {
+        //LOGGER.info("Recieved secret key/value! key: " + key + " value: " + value);
+
+        Config config = new Config();
+        config.setSecretKeyValue(key, value);
+
+        LOGGER.info("Retrieving secret with key " + key + " from the Azure Key Vault...");
+        LOGGER.info("value: " + config.getSecret(key));
+
+        return "Secret saved";
     }
 }
