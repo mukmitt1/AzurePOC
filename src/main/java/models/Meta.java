@@ -30,6 +30,7 @@ public class Meta {
         this.minPaymentDue = minPaymentDue;
     }
 
+    
     @Override
     public String toString() {
         return "Meta{" +
