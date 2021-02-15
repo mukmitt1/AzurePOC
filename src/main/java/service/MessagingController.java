@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+// user: azureuser
+// pass: pa55w4rd
+
 @RestController
 public class MessagingController {
-    //TODO logging goes hereAdrafinil
 
     private static final Logger LOGGER= LoggerFactory.getLogger(MessagingController.class);
 
@@ -82,7 +84,7 @@ public class MessagingController {
     @GetMapping("/saveSecret")
     @ResponseStatus(HttpStatus.OK)
     public String saveSecret(@RequestParam String key, @RequestParam String value) {
-        //LOGGER.info("Recieved secret key/value! key: " + key + " value: " + value);
+        LOGGER.info("Recieved secret key/value! key: " + key + " value: " + value);
 
         Config config = new Config();
         config.setSecretKeyValue(key, value);
