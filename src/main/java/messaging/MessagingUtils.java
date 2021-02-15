@@ -21,8 +21,9 @@ public class MessagingUtils {
    static String queueName = "notificationqueue";
 
    public static ServiceBusMessage createMessage(ServiceRequest req) {
-      return new ServiceBusMessage("Msg UUID: " + req.getUuid() + " Msg type: " + req.getMessageType()
-         + " Msg body: " + req.getMessageBody());
+//      return new ServiceBusMessage("Msg UUID: " + req.getUuid() + " Msg type: " + req.getMessageType()
+//         + " Msg body: " + req.getMessageBody());
+      return new ServiceBusMessage("Message contents: " + req.toString());
    }
 
    public static void sendMessage(ServiceBusMessage sbm)
