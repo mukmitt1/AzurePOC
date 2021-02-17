@@ -15,15 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// user: azureuser
-// pass: pa55w4rd
-
 @RestController
 public class MessagingController {
 
     private static final Logger LOGGER= LoggerFactory.getLogger(MessagingController.class);
-
-
+    
     @GetMapping("/exampleGet")
     public ServiceResponse exampleGet() {
 
