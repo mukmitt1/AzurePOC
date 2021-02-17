@@ -19,7 +19,7 @@ import java.util.Random;
 public class MessagingController {
 
     private static final Logger LOGGER= LoggerFactory.getLogger(MessagingController.class);
-    
+
     @GetMapping("/exampleGet")
     public ServiceResponse exampleGet() {
 
