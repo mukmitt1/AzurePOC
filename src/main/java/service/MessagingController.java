@@ -91,4 +91,18 @@ public class MessagingController {
 
         return "Secret saved";
     }
+
+    @GetMapping("/saveSecret")
+    @ResponseStatus(HttpStatus.OK)
+    public String readEnvVar() {
+        LOGGER.info("Received GET to /readEnvVar");
+
+        String envvar = System.getenv("EXAMPLE_ENV_VAR");
+
+        if (envvar != null) {
+            return envvar;
+        }
+
+        return "Env var not found";
+    }
 }
