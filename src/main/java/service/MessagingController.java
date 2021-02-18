@@ -92,7 +92,7 @@ public class MessagingController {
         return "Secret saved";
     }
 
-    @GetMapping("/saveSecret")
+    @GetMapping("/getEnvVar")
     @ResponseStatus(HttpStatus.OK)
     public String readEnvVar() {
         LOGGER.info("Received GET to /readEnvVar");
